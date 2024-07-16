@@ -8,8 +8,8 @@ const Register = () => {
     const [isPasswordShowing, setIsPasswordShowing] = useState(false);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-800 text-slate-100">
-            <form className="w-80 p-5 rounded-lg flex flex-col gap-5 bg-slate-900">
+        <div className="min-h-screen flex items-center justify-center">
+            <form className="w-80 p-5 rounded-lg flex flex-col gap-5 bg-slate-100">
                 <h1 className="text-center text-xl font-semibold">TaskGuard</h1>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="email" className="text-sm cursor-pointer">
@@ -21,7 +21,7 @@ const Register = () => {
                         id="email"
                         required
                         placeholder="Email"
-                        className="p-2 text-slate-900"
+                        className="p-2"
                     />
                 </div>
                 <div className="flex flex-col gap-1">
@@ -37,7 +37,7 @@ const Register = () => {
                         id="password"
                         required
                         placeholder="Password"
-                        className="p-2 text-slate-900"
+                        className="p-2"
                     />
                     <div className="flex gap-2">
                         <input
@@ -59,7 +59,7 @@ const Register = () => {
                 </div>
                 <button
                     formAction={signup}
-                    className="p-2 font-semibold bg-white text-black"
+                    className="p-2 font-semibold bg-slate-900 text-slate-100"
                 >
                     Register
                 </button>
