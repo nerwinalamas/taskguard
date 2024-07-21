@@ -20,30 +20,47 @@ import {
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { updateTask } from "@/app/task/action";
 
 const UpdateTask = () => {
     const { modalType, isModalOpen, closeModal, data } = useModal();
     const toggleModal = isModalOpen && modalType === "updateTaskModal";
 
-    const [updateTask, setUpdateTask] = useState("");
-    const [updateStatus, setUpdateStatus] = useState("");
+    const [id, setId] = useState("");
+    const [task, setTask] = useState("");
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
         if (toggleModal && data) {
-            setUpdateTask(data.title);
-            setUpdateStatus(data.status)
+            setId(data.id);
+            setTask(data.task);
+            setStatus(data.status);
         }
     }, [toggleModal, data]);
 
-    const handleSubmit = () => {
-        setUpdateTask("");
-        setUpdateStatus("");
-        closeModal();
+    const handleSubmit = async () => {
+        const formData = new FormData();
+        formData.append("taskId", id);
+        formData.append("task", task);
+        formData.append("status", status);
+
+        try {
+            const response = await updateTask(formData);
+            if (response?.success) {
+                setTask("");
+                setStatus("");
+                closeModal();
+            } else {
+                console.error("Failed to update task:", response?.error);
+            }
+        } catch (error) {
+            console.error("Error updating task:", error);
+        }
     };
 
     const handleClose = () => {
-        setUpdateTask("");
-        setUpdateStatus("");
+        setTask("");
+        setStatus("");
     };
 
     return (
@@ -55,32 +72,37 @@ const UpdateTask = () => {
                     </DialogTitle>
                 </DialogHeader>
                 <DialogDescription className="text-base font-medium flex flex-col gap-3">
-                    <div className="space-y-2">
-                        <Label htmlFor="task">Task</Label>
-                        <Input
-                            type="text"
-                            placeholder="Update Task"
-                            name="task"
-                            value={updateTask}
-                            onChange={(e) => setUpdateTask(e.target.value)}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="status">Status</Label>
-                        <Select value={updateStatus} onValueChange={setUpdateStatus}>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem value="pending">Pending</SelectItem>
-                                    <SelectItem value="in-progress">In-Progress</SelectItem>
-                                    <SelectItem value="block">Block</SelectItem>
-                                    <SelectItem value="done">Done</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                    <input type="text" name="taskId" value={id} hidden={true} readOnly />
+
+                    <Label htmlFor="task">Task</Label>
+                    <Input
+                        type="text"
+                        placeholder="Update Task"
+                        name="task"
+                        value={task}
+                        onChange={(e) => setTask(e.target.value)}
+                    />
+
+                    <Label htmlFor="status">Status</Label>
+                    <Select
+                        name="status"
+                        value={status}
+                        onValueChange={setStatus}
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="pending">Pending</SelectItem>
+                                <SelectItem value="in-progress">
+                                    In-Progress
+                                </SelectItem>
+                                <SelectItem value="block">Block</SelectItem>
+                                <SelectItem value="done">Done</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </DialogDescription>
                 <DialogFooter className="flex flex-col gap-2 md:gap-0 md:flex-row">
                     <Button
