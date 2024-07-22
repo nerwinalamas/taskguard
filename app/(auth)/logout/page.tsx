@@ -1,13 +1,12 @@
-import { logout } from "./action";
+import { logout } from "./actions";
 
 const Logout = () => {
     return (
-        <button
-            formAction={logout}
-            className="p-2 font-semibold bg-slate-900 text-slate-100"
-        >
-            Logout
-        </button>
+        <form action={logout}>
+            <button className="p-2 font-semibold bg-slate-900 text-slate-100">
+                Logout
+            </button>
+        </form>
     );
 };
 
