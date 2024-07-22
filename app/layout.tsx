@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${inter.className} flex flex-col bg-slate-900`}>
+            <body className={`${inter.className} flex flex-col text-white bg-slate-900`}>
                 <Navbar />
                 <main>{children}</main>
                 <ModalProvider />

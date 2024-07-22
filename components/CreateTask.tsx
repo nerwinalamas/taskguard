@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -37,7 +37,7 @@ const CreateTask = () => {
                 id="task"
                 placeholder="Create Task"
                 required
-                className="w-60"
+                className="w-60 text-slate-900"
                 value={task}
                 onChange={(e) => setTask(e.target.value)}
             />

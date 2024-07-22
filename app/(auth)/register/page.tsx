@@ -9,7 +9,7 @@ const Register = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center">
-            <form className="w-80 p-5 rounded-lg flex flex-col gap-5 bg-slate-100">
+            <form className="w-80 p-5 rounded-lg flex flex-col gap-5 text-slate-900 bg-slate-100">
                 <h1 className="text-center text-xl font-semibold">TaskGuard</h1>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="email" className="text-sm cursor-pointer">
