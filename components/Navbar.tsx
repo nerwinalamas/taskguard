@@ -10,9 +10,17 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+    const pathname = usePathname();
     const [openSheet, setOpenSheet] = useState(false);
+
+    const isAuthPage = pathname === "/login" || pathname === "/register";
+
+    if (isAuthPage) {
+        return null;
+    }
 
     return (
         <div className="max-w-screen-2xl p-4 lg:px-10 lg:py-5 flex items-center justify-between text-white">
